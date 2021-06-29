@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  app:
+    build: ./
+    # When running locally, instead of the default 'npm run start'
+    # the app needs to wait for the DBs, run migrations and start
+    # with a file watcher.
+    command: >
+      sh -c "dockerize -wait tcp://mysql:3306 -timeout 60s
+      && node ace migration:run
+      && node ace serve --watch"
+    volumes:
+      - ./:/opt/app
+      # Prevent mounting the host's node_modules
+      - notused:/opt/app/node_modules
+    ports:
+      - 3333:3333
+    environment:
+      APP_ENV: development
+      LOGGER_LEVEL: debug
+      HTTP_PORT: 3333
+      TEST_PORT: 2727
+      DB_HOST: mysql
+      DB_SCHEMA: monodedo_survey
+      DB_USER: monodedo
+      DB_PASSWORD: secret
+      TEST_DB_SCHEMA: app_test
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mariadb:latest
+    restart: always
+    ports:
+      - 33060:3306
+    environment:
+      MYSQL_DATABASE: monodedo_survey
+      MYSQL_USER: monodedo
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: secret
+
+volumes:
+  notused:

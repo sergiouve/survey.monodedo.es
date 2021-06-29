@@ -1,0 +1,19 @@
+@layout('layouts/master')
+@set('title', 'Monodedo encuesta - Entrenamiento')
+
+@section('body')
+<section>
+    <h1>Entrenatmiento</h1>
+    <form method="POST" id="personalQuestions" action="{{ route('survey.save') }}">
+        <h3>¿Entrenas en rocódromo?</h3>
+        <input type="radio" id="trainsInGym1" name="trainsInGym" value="1">
+        <label for="trainsInGym1">Sí</label><br>
+        <input type="radio" id="trainsInGym0" name="trainsInGym" value="0">
+        <label for="trainsInGym0">No</label><br>
+
+        <div class="form-example">
+            <input type="submit" value="Enviar">
+        </div>
+    </form>
+</section>
+@end

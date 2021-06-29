@@ -1,0 +1,8 @@
+@layout('layouts/master')
+@set('title', 'Monodedo encuesta - Comienzo')
+
+@section('body')
+<section>
+    <span>Siguente paso: {{ survey.getNextStep() }}</span>
+</section>
+@end

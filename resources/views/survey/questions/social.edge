@@ -1,0 +1,19 @@
+@layout('layouts/master')
+@set('title', 'Monodedo encuesta - Social')
+
+@section('body')
+<section>
+    <h1>Social</h1>
+    <form method="POST" id="personalQuestions" action="{{ route('survey.save') }}">
+        <h3>¿Escalas con amigos?</h3>
+        <input type="radio" id="climbOutside1" name="climbsOutside" value="1">
+        <label for="climbsOutside1">Sí</label><br>
+        <input type="radio" id="climbsOutside0" name="climbsOutside" value="0">
+        <label for="climbsOutside0">No</label><br>
+
+        <div class="form-example">
+            <input type="submit" value="Enviar">
+        </div>
+    </form>
+</section>
+@end

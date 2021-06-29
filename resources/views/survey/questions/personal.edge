@@ -1,0 +1,29 @@
+@layout('layouts/master')
+@set('title', 'Monodedo encuesta - Personal')
+
+@section('body')
+<section>
+    <h1>Personal</h1>
+    <form method="POST" id="personalQuestions" action="{{ route('survey.save') }}">
+        <h3>¿Cuántos años llevas escalando?</h3>
+        <input type="radio" id="lessThanOne" name="yearsClimbing" value="1">
+        <label for="male">Menos de un año</label><br>
+        <input type="radio" id="oneToThree" name="yearsClimbing" value="">
+        <label for="female">Entre 1 y 3 años</label><br>
+        <input type="radio" id="threeToTen" name="yearsClimbing" value="other">
+        <label for="other">De 3 a 10 años</label></br>
+        <input type="radio" id="moreThanTen" name="yearsClimbing" value="other">
+        <label for="other">Más de 10 años</label></br>
+        <input type="radio" id="moreThanTwenty" name="yearsClimbing" value="other">
+        <label for="other">Más de 20 años</label></br>
+        <input type="radio" id="moreThanThirty" name="yearsClimbing" value="other">
+        <label for="other">Más de 30 años</label></br>
+        <input type="radio" id="moreThanForty" name="yearsClimbing" value="other">
+        <label for="other">Más de 40 años</label></br>
+
+        <div class="form-example">
+            <input type="submit" value="Enviar">
+        </div>
+    </form>
+</section>
+@end

@@ -1,8 +1,7 @@
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import View from '@ioc:Adonis/Core/View'
 
 class HomeController {
-  public async show(context: HttpContextContract) {
+  public async show() {
     return View.render('home')
   }
 }

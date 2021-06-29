@@ -39,6 +39,8 @@
     "@adonisjs/repl"
   ],
   "namespaces": {
-    "httpControllers": "App/Controllers"
+    "httpControllers": "App/Http/Controllers",
+    "models": "App/Domain/*/Models",
+    "middleware": "App/Http/Middlewares"
   }
 }

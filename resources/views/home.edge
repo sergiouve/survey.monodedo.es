@@ -1,10 +1,20 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Encuesta Monodedo</title>
-  </head>
-  <body>
+@layout('layouts/master')
+@set('title', 'Home page')
 
-  </body>
-</html>
+@section('body')
+  <section class="hero is-warning">
+    <div class="hero-body">
+      <p class="title">
+        Title
+      </p>
+      <p class="subtitle">
+        Subtitle
+      </p>
+    </div>
+
+  </section>
+
+  <section>
+    <a href="{{ route('survey.show') }}">Empezar encuesta</a>
+  </section>
+@end
