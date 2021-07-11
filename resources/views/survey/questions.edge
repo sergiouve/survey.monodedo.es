@@ -1,0 +1,17 @@
+@layout('layouts/master')
+@set('title', 'Monodedo encuesta - Roca')
+
+@section('body')
+<section>
+    <h1>{{ currentStep }}</h1>
+    <form method="POST" id="personalQuestions" action="{{ route('survey.save') }}">
+        @each(question in questions)
+            <h3>{{ question.text }}</h3>
+        @end
+
+        <div class="form-example">
+            <input type="submit" value="Enviar">
+        </div>
+    </form>
+</section>
+@end

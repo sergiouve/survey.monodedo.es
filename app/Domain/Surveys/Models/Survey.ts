@@ -2,6 +2,7 @@ import { BaseModel, column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
 import { DateTime } from 'luxon'
 
 import SurveySession from 'App/Domain/Surveys/Models/SurveySession'
+import Question from 'App/Domain/Questions/Models/Question'
 
 class Survey extends BaseModel {
     public static table: string = 'surveys_surveys'
@@ -38,12 +39,24 @@ class Survey extends BaseModel {
     @hasMany(() => SurveySession, { foreignKey: 'surveyId' })
     public sessions: HasMany<typeof SurveySession>
 
-    public getStepNameFromIndex(index: number): string {
+    @hasMany(() => Question, { foreignKey: 'surveyId' })
+    public questions: HasMany<typeof Question>
+
+    static async getCurrentActive(): Promise<Survey|null> {
+        return await Survey.query().where('is_active', true).first()
+    }
+
+    public static getStepNameFromIndex(index: number): string {
         return Survey.steps[index]
     }
 
-    public getStepNumber(): number {
+    public static getStepNumber(): number {
         return Survey.steps.length
+    }
+
+    public async getQuestionsFromCategory(categorySlug: string): Array<Question> {
+        console.log(this.questions)
+        return this.questions.withScopes((scopes: any) => scopes.fromCategory(categorySlug))
     }
 }
 

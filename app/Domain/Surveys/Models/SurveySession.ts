@@ -2,6 +2,7 @@ import { BaseModel, column, belongsTo, BelongsTo } from '@ioc:Adonis/Lucid/Orm'
 import { DateTime } from 'luxon'
 
 import Survey from 'App/Domain/Surveys/Models/Survey'
+import SurveyStates from 'App/Domain/Surveys/Types/SurveyStates'
 
 class SurveySession extends BaseModel {
     public static table: string = 'surveys_sessions'
@@ -28,9 +29,11 @@ class SurveySession extends BaseModel {
     public survey: BelongsTo<typeof Survey>
 
     public static async findOrCreateFromHash(sessionHash: string): Promise<SurveySession> {
+        const currentSurvey = await Survey.getCurrentActive()
+
         return await SurveySession.findBy('sessionHash', sessionHash)
             || await SurveySession.create({
-                surveyId: 1, // TODO: get current active survey from env or Survey model
+                surveyId: currentSurvey!.id,
                 sessionHash,
                 stepIndex: 0,
             })
@@ -43,15 +46,17 @@ class SurveySession extends BaseModel {
         return survey
     }
 
-    public async getCurrentStep(): Promise<string> {
-        const survey = await this.getSurvey()
+    public getCurrentStep(): string {
+        return Survey.getStepNameFromIndex(this.stepIndex)
+    }
 
+    public getState(): string {
         if (this.stepIndex < 1) {
-            return 'onboarding'
-        } else if (this.stepIndex >= survey!.getStepNumber()) {
-            return 'thanks'
+            return SurveyStates.Onboarding
+        } else if (this.stepIndex >= Survey.getStepNumber()) {
+            return SurveyStates.Finished
         } else {
-            return survey!.getStepNameFromIndex(this.stepIndex)
+            return SurveyStates.Questioning
         }
     }
 
