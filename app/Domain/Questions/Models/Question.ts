@@ -1,8 +1,9 @@
-import { BaseModel, column, scope, belongsTo, BelongsTo, } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, scope, belongsTo, BelongsTo, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
 import { DateTime } from 'luxon'
 
 import Survey from 'App/Domain/Surveys/Models/Survey'
 import QuestionCategory from 'App/Domain/Questions/Models/QuestionCategory'
+import QuestionOption from './QuestionOption'
 
 class Question extends BaseModel {
     public static table: string = 'questions_questions'
@@ -26,6 +27,12 @@ class Question extends BaseModel {
     public text: string
 
     @column()
+    public order: number
+
+    @column()
+    public required: boolean
+
+    @column()
     public type: string
 
     @column.dateTime({ autoCreate: true })
@@ -39,6 +46,9 @@ class Question extends BaseModel {
 
     @belongsTo(() => QuestionCategory)
     public category: BelongsTo<typeof QuestionCategory>
+
+    @hasMany(() => QuestionOption)
+    public options: HasMany<typeof QuestionOption>
 
     public static fromCategory = scope((query, category: QuestionCategory) => {
         query.where('category_id', category.id)

@@ -4,7 +4,7 @@
 @section('body')
 <section>
     <h1>{{ currentStep }}</h1>
-    <form method="POST" id="personalQuestions" action="{{ route('survey.save') }}">
+    <form method="POST" id="questions_{{ currentStep }}" action="{{ route('survey.save') }}">
         @each(question in questions)
             <h3>{{ question.text }}</h3>
         @end

@@ -50,13 +50,8 @@ class Survey extends BaseModel {
         return Survey.steps[index]
     }
 
-    public static getStepNumber(): number {
+    public static getStepsLength(): number {
         return Survey.steps.length
-    }
-
-    public async getQuestionsFromCategory(categorySlug: string): Array<Question> {
-        console.log(this.questions)
-        return this.questions.withScopes((scopes: any) => scopes.fromCategory(categorySlug))
     }
 }
 

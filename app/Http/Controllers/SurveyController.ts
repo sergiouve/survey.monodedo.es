@@ -10,8 +10,6 @@ class SurveyController {
 
     switch (surveySession.getState()) {
         case SurveyStates.Onboarding: {
-          await surveySession.incrementStep()
-
           return View.render(`survey/onboarding`)
         }
         case SurveyStates.Questioning: {

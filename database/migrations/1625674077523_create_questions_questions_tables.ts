@@ -9,6 +9,8 @@ export default class CreateQuestionsQuestionsTables extends BaseSchema {
       table.bigInteger('survey_id')
       table.bigInteger('category_id')
       table.text('text')
+      table.integer('order')
+      table.boolean('required')
       table.string('type')
 
       table.timestamp('created_at', { useTz: true })

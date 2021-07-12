@@ -4,5 +4,12 @@
 @section('body')
 <section>
     <h1>Onboarding</h1>
+
+    <form method="POST" id="personalQuestions" action="{{ route('survey.save') }}">
+        <div class="form-example">
+            <input type="submit" value="Enviar">
+        </div>
+    </form>
+
 </section>
 @end

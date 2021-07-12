@@ -47,13 +47,13 @@ class SurveySession extends BaseModel {
     }
 
     public getCurrentStep(): string {
-        return Survey.getStepNameFromIndex(this.stepIndex)
+        return Survey.getStepNameFromIndex(this.stepIndex - 1)
     }
 
     public getState(): string {
         if (this.stepIndex < 1) {
             return SurveyStates.Onboarding
-        } else if (this.stepIndex >= Survey.getStepNumber()) {
+        } else if (this.stepIndex > Survey.getStepsLength()) {
             return SurveyStates.Finished
         } else {
             return SurveyStates.Questioning
